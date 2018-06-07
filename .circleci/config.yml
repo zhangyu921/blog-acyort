@@ -16,13 +16,14 @@ jobs:
       - run: acyort init 
       - run: cp config.bak.yml config.yml 
       - run: npm i # 可选，如果你需要安装 npm 插件
+      - run: git clone https://github.com/acyortjs/theme-donob.git
       - run: acyort build  
       - run: git checkout .  
       - run: git checkout gh-pages # 静态文件存放分支
       - run: git reset --hard origin/gh-pages
       - run: cp -R public/* . 
       - run: rm config.bak.yml 
-      - run: rm -Rf scripts themes public 
+      - run: rm -R scripts themes public 
       - run: git add .
       - run: git config user.name "zhangyu921" # 你的 GitHub 用户名
       - run: git config user.email "zhyuz@outlook.com" # 你的 GitHub 邮箱

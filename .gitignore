@@ -1,5 +1,7 @@
-Thumbs.db
 .DS_Store
 *.swp
-themes/
+Thumbs.db
 _issues.json
+node_modules/
+public/
+themes/
