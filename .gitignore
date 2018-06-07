@@ -1,6 +1,6 @@
 Thumbs.db
 .DS_Store
 *.swp
-themes/
 _issues.json
-package-lock.json
+node_modules/
+public/
