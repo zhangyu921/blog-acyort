@@ -49,7 +49,7 @@ plugins:
 
 # output
 # where static site files located
-public_dir: public
+public_dir: /
 
 # authors
 # Github usernames, users whose issues can be generated to post
