@@ -21,7 +21,7 @@ jobs:
       - run: git checkout .  
       - run: git checkout gh-pages # 静态文件存放分支
       - run: git reset --hard origin/gh-pages
-      - run: cp -R public/* . 
+      # - run: cp -R public/* . 
       - run: rm config.bak.yml 
       - run: rm -R scripts themes public 
       - run: git add .
