@@ -1,0 +1,1020 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="不是鱿鱼的自留鱼塘." />
+<link rel="stylesheet" href="/blog-acyort/css/style.css" />
+
+  <title>
+SQL参考手册(待续） - 小宇宙
+</title>
+</head>
+
+<body>
+
+<div class="main">
+
+<div class="header">
+    <a class="logo" href="/blog-acyort">小宇宙</a><!--
+
+ --><div class="menu">
+        <a href="/blog-acyort/archives/">Archives</a><a href="/blog-acyort/about/">About</a>
+    </div>
+
+    <div class="social">
+        <a target="_blank" href="https://github.com/zhangyu921/blog-acyort/issues"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"></path>
+</svg></a>
+    </div>
+</div>
+
+
+<div id="post" class="center">
+  <p class="time">June 12, 2018</p>
+  <h1 class="title">SQL参考手册(待续）</h1>
+  <div class="content"><p>sql的目的：</p>
+<p><strong>提供一种从数据库中读写数据的简单有效的方法。</strong></p>
+<p>2 检索 SELECT</p>
+<p>检索多个列</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">select</span> prod_id, prod_price, prod_name
+
+<span class="hljs-keyword">from</span> products;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>检索不同的值 DISTINCT，不会显示重复数据</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT DISTINCT vend_id 
+
+FROM Products;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>检索偏移的数据：检索第5个开始的5个数据</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_name 
+
+FROM Products 
+
+LIMIT 5 OFFSET 5;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>注释 使用双短横线 <code>—</code></p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> prod_name 
+
+<span class="hljs-keyword">FROM</span> Products <span class="hljs-comment">--注释</span></pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>3 排序 ORDER</p>
+<p>检索多个列，并根据price和name进行排序</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_id, prod_price, prod_name
+
+FROM products
+
+ORDER BY prod_price, prod_name;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>相对位置检索，与上同</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+<span>7</span>
+</pre>
+              </td>
+              <td class="code"><pre>
+SELECT prod_id, prod_price, prod_name 
+
+FROM Products 
+
+ORDER BY 2, 3;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>指定排序方向：降序 DESC（DESCENDING）升序 ASC（ASCENDING）</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_id, prod_price, prod_name 
+
+FROM Products 
+
+ORDER BY prod_price DESC;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>4 过滤 WHERE</p>
+<p>price大于3.49的商品</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_name, prod_price 
+
+FROM Products
+
+WHERE prod_price &gt; 3.49;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td><code>&lt;&gt;</code></td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>不小于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td><code>!&gt;</code></td>
+<td>不大于</td>
+</tr>
+</tbody></table>
+<p>BETWEEN 在指定的两个值之间</p>
+<p>IS NULL 为NULL值</p>
+<p>BETWEEN用法：</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+<span>7</span>
+<span>8</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_name, prod_price 
+
+FROM Products 
+
+WHERE prod_price 
+
+BETWEEN 5 AND 10;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>5 高级过滤</p>
+<p>多重限定条件 用AND链接</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> prod_id, prod_price, prod_name 
+
+<span class="hljs-keyword">FROM</span> Products 
+
+<span class="hljs-keyword">WHERE</span> vend_id = <span class="hljs-string">'DLL01'</span> <span class="hljs-keyword">AND</span> prod_price &lt;= <span class="hljs-number">4</span>;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>匹配任一给定条件 用OR链接</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> prod_name, prod_price 
+
+<span class="hljs-keyword">FROM</span> Products 
+
+<span class="hljs-keyword">WHERE</span> vend_id = <span class="hljs-string">'DLL01'</span> <span class="hljs-keyword">OR</span> vend_id = ‘BRS01’;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>AND优先级高于OR 用<code>()</code>限定顺序；尽量使用，消除歧义</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_name, prod_price 
+
+FROM Products 
+
+WHERE (vend_id &#x3D; &#39;DLL01&#39; OR vend_id &#x3D; ‘BRS01’) AND prod_price &gt;&#x3D; 10;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>IN操作</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_name, prod_price 
+
+FROM Products 
+
+WHERE vend_id IN ( &#39;DLL01&#39;, &#39;BRS01&#39; ) ORDER BY prod_name;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>与OR功能相当，但比OR执行快，最大优点是可以包含其他SELECT语句</p>
+<p>NOT操作符, 否定其后所跟的任何条件</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+<span>7</span>
+<span>8</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_name 
+
+FROM Products 
+
+WHERE NOT vend_id &#x3D; &#39;DLL01&#39; 
+
+ORDER BY prod_name;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>6 通配符过滤</p>
+<p>LIKE 操作符，谓词（ predicate）</p>
+<p>通配符，百分号<code>%</code>，表示任何字符出现任意次数</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_id, prod_name 
+
+FROM Products 
+
+WHERE prod_name LIKE &#39;%bean bag%&#39;;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>表示prod_name中含有 bean bag的条目</p>
+<p>不能匹配到NULL</p>
+<p>下划线<code>_</code>，区别于<code>%</code>只匹配单个字符</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_id, prod_name 
+
+FROM Products 
+
+WHERE prod_name LIKE &#39;% inch teddy bear&#39;;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>技巧</p>
+<p>通配符代价更高，需要合理使用，尽量排在靠后的筛选位置</p>
+<p>7 创建计算字段</p>
+<p>字段：一般指计算字段。区别于原有数据库中的：列；</p>
+<p>拼接字符串 <code>||</code></p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT vend_name || &#39; (&#39; || vend_country || &#39;)&#39; 
+
+FROM Vendors 
+
+ORDER BY vend_name;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>避免空格使用 TRIM 函数</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT RTRIM(vend_name) || &#39; (&#39; || RTRIM(vend_country) || &#39;)&#39; 
+
+FROM Vendors 
+
+ORDER BY vend_name;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>大多数DBMS都支持RTRIM()（正如刚才所见，它去掉字符串右边的空格）、LTRIM()（去掉字符串左边的空格）以及TRIM()（去掉字符串左 右两边的空格）。</p>
+<p>别名 AS，给计算出来的字段命名；最好使用它，这被视为一条最佳实践</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT RTRIM(vend_name) || &#39; (&#39; || RTRIM(vend_country) || &#39;)&#39; AS vend_title 
+
+FROM Vendors 
+
+ORDER BY vend_name;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>执行算数计算</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT prod_id, quantity, item_price, quantity*item_price AS expanded_price 
+
+FROM OrderItems 
+
+WHERE order_num &#x3D; 20008;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>执行算数计算</p>
+<p>使用省略了From的 SELECT</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT 7 * 6</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>8 函数</p>
+<p>改成大写函数</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> vend_name, <span class="hljs-built_in">UPPER</span>(vend_name) <span class="hljs-keyword">AS</span> vend_name_upcase 
+
+<span class="hljs-keyword">FROM</span> Vendors 
+
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> vend_name; </pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>函数在不同DB下表现不同；</p>
+<p>9 汇总数据</p>
+<p>AVG() 返回某列的平均值</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT AVG(prod_price) AS avg_price 
+
+FROM Products 
+
+WHERE vend_id &#x3D; &#39;DLL01&#39;;
+</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>COUNT() 返回某列的行数，COUNT(*)包含NULL行，其他指定的会跳过NULL 行</p>
+<p>返回列表总数</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT COUNT(*) AS num_cust  --包括Null行
+FROM Customers</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(cust_email) <span class="hljs-keyword">AS</span> num_cust  --不包括cust_email 为<span class="hljs-literal">null</span>的行
+<span class="hljs-keyword">FROM</span> Customers</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>MAX() 返回某列的最大值</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT MAX(prod_price) AS max_price  --最大数值或日期
+FROM Products;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>MIN() 返回某列的最小值</p>
+<p>SUM() 返回某列值之和</p>
+<p>商品总价的和</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT SUM(item_price*quantity) AS total_price FROM OrderItems 
+WHERE order_num &#x3D; 20005;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>9.2 聚集不同值</p>
+<p>计算唯一的price</p>
+
+      <div class="hljs">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT AVG(DISTINCT prod_price) AS avg_price FROM Products 
+WHERE vend_id &#x3D; &#39;DLL01&#39;;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>DISTINCT 必须使用列名，不能用于计算或表达式。</p>
+<p>9.3 组合聚集函数</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> 
+    <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">AS</span> num_items, 
+    <span class="hljs-built_in">MIN</span>(prod_price) <span class="hljs-keyword">AS</span> price_min, 
+    <span class="hljs-built_in">MAX</span>(prod_price) <span class="hljs-keyword">AS</span> price_max, 
+    <span class="hljs-built_in">AVG</span>(prod_price) <span class="hljs-keyword">AS</span> price_avg 
+<span class="hljs-keyword">FROM</span> Products;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>小结：尽量在DB使用聚合函数，比在客户端要高效</p>
+<p>10 </p>
+<p>分组数据 GROUP BY</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+</pre>
+              </td>
+              <td class="code"><pre>SELECT vend_id, COUNT(*) AS num_prods 
+<span class="hljs-keyword">FROM</span> Products <span class="hljs-built_in">
+GROUP </span>BY vend_id;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <ul>
+<li>GROUP BY子句必须出现在WHERE子句之后，ORDER BY子句之前</li>
+</ul>
+<p>过滤分组 HAVING</p>
+<p>筛选出每个分组条数大于2的分组</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">select</span> cust_id, count<span class="hljs-comment">(*) as orders
+from orders
+group by cust_id
+having count(*)</span> &gt;= <span class="hljs-number">2</span>;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>HAVING 支持所有 WHERE操作符</p>
+<p>与WHERE的不同</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> vend_id, COUNT<span class="hljs-comment">(*) AS num_prods
+FROM Products
+WHERE prod_price &gt;= 4
+GROUP BY vend_id
+HAVING COUNT(*)</span> &gt;= <span class="hljs-number">2</span>;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>WHERE面对行进行过滤，HAVING面对GROUP过后表进行过滤</p>
+<p>这里有另一种理解方法，WHERE在数据分组前进行过滤，HAVING在数据分组后进行过滤。</p>
+<p>分组和排序</p>
+<p>ORDER BY 保证展示顺序，GROUP不能保证顺序</p>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">SELECT</span> order_num, COUNT<span class="hljs-comment">(*) AS items 
+FROM OrderItems 
+GROUP BY order_num 
+HAVING COUNT(*)</span> &gt;= <span class="hljs-number">3</span> 
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> items, order_num;</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>SELECT 子句总结</p>
+<table>
+<thead>
+<tr>
+<th>子　　句</th>
+<th>说　　明</th>
+<th>是否必须使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SELECT</td>
+<td>要返回的列或表达式</td>
+<td>是</td>
+</tr>
+<tr>
+<td>FROM</td>
+<td>从中检索数据的表</td>
+<td>仅在从表选择数据时使用</td>
+</tr>
+<tr>
+<td>WHERE</td>
+<td>行级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>GROUP BY</td>
+<td>分组说明</td>
+<td>仅在按组计算聚集时使用</td>
+</tr>
+<tr>
+<td>HAVING</td>
+<td>组级过滤</td>
+<td>否</td>
+</tr>
+<tr>
+<td>ORDER BY</td>
+<td>输出排序顺序</td>
+<td>否</td>
+</tr>
+</tbody></table>
+<p>11 子查询</p>
+<p>子查询常用于WHERE子句的IN操作符中</p>
+<p>列出订购物品RGAN01的所有顾客</p>
+<ol>
+<li><p>检索包含物品RGAN01的所有订单的编号。</p>
+</li>
+<li><p>检索具有前一步骤列出的订单编号的所有顾客的ID。</p>
+</li>
+<li><p>检索前一步骤返回的所有顾客ID的顾客信息。</p>
+</li>
+</ol>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+<span>7</span>
+<span>8</span>
+<span>9</span>
+<span>10</span>
+<span>11</span>
+<span>12</span>
+<span>13</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">select</span>
+  cust_name,
+  cust_contact
+<span class="hljs-keyword">from</span> customers
+<span class="hljs-keyword">where</span> cust_id <span class="hljs-keyword">in</span> (
+  <span class="hljs-keyword">select</span> cust_id
+  <span class="hljs-keyword">from</span> orders
+  <span class="hljs-keyword">where</span> order_num <span class="hljs-keyword">in</span> (
+    <span class="hljs-keyword">select</span> order_num
+    <span class="hljs-keyword">from</span> orderitems
+    <span class="hljs-keyword">where</span> prod_id = <span class="hljs-string">'RGAN01'</span>
+  )
+)</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>子查询并不总是执行这类数据检索的最有效方法</p>
+<p>作为计算字段使用子查询</p>
+<p>显示Customers表中每个顾客的订单总数</p>
+<ol>
+<li><p>从Customers表中检索顾客列表；</p>
+</li>
+<li><p>对于检索出的每个顾客，统计其在Orders表中的订单数目。</p>
+</li>
+</ol>
+
+      <div class="hljs sql">
+        <table>
+          <tbody>
+            <tr>
+              <td class="line">
+                <pre><span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+<span>7</span>
+<span>8</span>
+<span>9</span>
+<span>10</span>
+</pre>
+              </td>
+              <td class="code"><pre><span class="hljs-keyword">select</span>
+  cust_name,
+  cust_state,
+  (
+    <span class="hljs-keyword">select</span> <span class="hljs-built_in">count</span>(*)
+    <span class="hljs-keyword">from</span> orders
+    <span class="hljs-keyword">where</span> orders.cust_id = customers.cust_id
+  ) <span class="hljs-keyword">as</span> orders
+<span class="hljs-keyword">from</span> customers
+<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> orders <span class="hljs-keyword">desc</span></pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <p>子查询中的WHERE子句与前面使用的WHERE子句稍有不同，因为它使用了完全限定列名，而不只是列名（cust_id）。它指定表名和列名 （Orders.cust_id和Customers.cust_id）。</p>
+<p>应使用完全限定列名来避免歧义。</p>
+<p>它并不是解决这种数据检索的最有效方法</p>
+</div>
+  <div class="comments"><div id="disqus_thread"></div></div>
+</div>
+
+
+</div>
+
+<div class="footer">
+    <div class="center">
+      小宇宙 / Powered by
+      <a target="_blank" href="https://github.com/acyortjs/acyort">AcyOrt</a> /
+      Theme
+      <a target="_blank" href="https://github.com/acyortjs/theme-donob">donob</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
